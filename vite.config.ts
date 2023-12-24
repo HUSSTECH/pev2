@@ -1,9 +1,8 @@
 import path from "path"
 import { fileURLToPath, URL } from "url"
 
-import { defineConfig } from "vite"
+import { defineConfig, splitVendorChunkPlugin } from "vite"
 import vue from "@vitejs/plugin-vue"
-import { viteSingleFile } from "vite-plugin-singlefile"
 
 const build = process.env.LIB
   ? {
@@ -32,7 +31,7 @@ const build = process.env.LIB
       brotliSize: false,
       rollupOptions: {
         output: {
-          inlineDynamicImports: true,
+          inlineDynamicImports: false,
         },
       },
     }
@@ -48,7 +47,7 @@ export default defineConfig({
         },
       },
     }),
-    viteSingleFile(),
+    splitVendorChunkPlugin(),
   ],
   resolve: {
     alias: {
